@@ -10,6 +10,12 @@ public interface EmployeeService {
 
 	List<Employee> getAllEmployees();
 
+	Employee getEmployee(Long id);
+
+	Employee updateEmployee(Long id, Employee data);
+
+	String deleteEmployee(Long id);
+
 
 
 }
