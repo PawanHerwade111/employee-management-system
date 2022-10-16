@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name="employees")
@@ -25,7 +23,7 @@ public class Employee {
 	@Column(name = "emp_name")
 	private String employeeName;
 	
-	@Column(name = "email")
+	@Column(name = "email", unique=true)
 	private String email;
 	
 	@Column(name = "mob_no")
