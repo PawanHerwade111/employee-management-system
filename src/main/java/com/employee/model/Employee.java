@@ -1,11 +1,19 @@
 package com.employee.model;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,5 +39,17 @@ public class Employee {
 	
 	@Column
 	private String location;
+	
+	@Column(updatable = false)
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+	    
+	@Column
+	@UpdateTimestamp
+	private LocalDateTime lastModifiedAt;
+	
+	@ManyToOne(targetEntity = Department.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "department", referencedColumnName = "dept_Id")
+	private Department department;
 
 }

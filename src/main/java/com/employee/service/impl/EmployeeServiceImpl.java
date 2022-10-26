@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.employee.exception.EmployeeNotFoundException;
 import com.employee.model.Employee;
+import com.employee.repository.DepartmentRepository;
 import com.employee.repository.EmployeeRepository;
 import com.employee.service.EmployeeService;
 
@@ -15,6 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepository repository;
+	
+	@Autowired
+	private DepartmentRepository departmentRepository;
 
 	@Override
 	public Employee addEmployee(Employee data) throws EmployeeNotFoundException {
@@ -28,9 +32,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 				if (val == true) {
 					throw new EmployeeNotFoundException("Email id is already Present.");
 				} else {
+					departmentRepository.save(data.getDepartment());
 					emp = repository.save(data);
 				}
 			} else {
+				departmentRepository.save(data.getDepartment());
 				emp = repository.save(data);
 			}
 		} catch (EmployeeNotFoundException e) {
@@ -67,6 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public String deleteEmployee(Long id) {
+		
 		repository.deleteById(id);
 		return "Employee deleted successfully";
 	}
